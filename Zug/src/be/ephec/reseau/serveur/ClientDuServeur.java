@@ -5,12 +5,16 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import be.ephec.reseau.Lanceur;
+import be.ephec.reseau.Plateau;
+
 public class ClientDuServeur implements Runnable{
 		private Socket socket;
-		private ObjectInputStream ois;
-		private ObjectOutputStream oos;
-
-		public ClientDuServeur(Socket socket){
+		private static ObjectInputStream ois;
+		private static ObjectOutputStream oos;
+		private Lanceur leLanceur;
+		
+		public ClientDuServeur(Socket socket, Lanceur leLanceur){
 			this.socket = socket;
 			try {
 				ois = new ObjectInputStream(socket.getInputStream());
@@ -24,7 +28,7 @@ public class ClientDuServeur implements Runnable{
 		
 		
 		
-		public void ecrire(Object o){
+		public static void ecrire(Object o){
 			try {
 				oos.writeObject(o);
 			} catch (IOException e) {
@@ -32,17 +36,13 @@ public class ClientDuServeur implements Runnable{
 				e.printStackTrace();
 			}
 		}
-		
-		public Object lire() throws ClassNotFoundException, IOException{
-			return ois.readObject();
-		}
 
 		@Override
 		public void run() {
 			while (!socket.isClosed()){
-				Object object;
 				try {
-					object = lire();
+					Object o = ois.readObject();
+					new Plateau (o+"", leLanceur);
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
