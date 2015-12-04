@@ -12,8 +12,8 @@ import be.ephec.reseau.Lanceur;
 import be.ephec.reseau.Plateau;
 
 public class SocketClient extends Socket implements Runnable{
-	private ObjectOutputStream oos;
-	private ObjectInputStream ois;
+	private static ObjectOutputStream oos;
+	private static ObjectInputStream ois;
 	private Lanceur leLanceur;
 	private Thread t;
 	
@@ -29,7 +29,6 @@ public class SocketClient extends Socket implements Runnable{
 			ois = new ObjectInputStream(this.getInputStream());
 			lireEnBoucle ();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -40,6 +39,13 @@ public class SocketClient extends Socket implements Runnable{
 		t.start();
 	}
 	
+	public static void ecrire(Object o){
+		try {
+			oos.writeObject(o);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	@Override
 	public void run() {
@@ -49,7 +55,7 @@ public class SocketClient extends Socket implements Runnable{
 			try {
 				Object o = ois.readObject();
 				Plateau plat = new Plateau (o.toString(), leLanceur);
-				leLanceur.getInterfaceGraphique().setContentPane(plat.initPlateau());
+				leLanceur.getInterfaceGraphique().setContentPane(plat);
 				leLanceur.getInterfaceGraphique().setVisible(true);
 			} catch (ClassNotFoundException e) {
 					e.printStackTrace();

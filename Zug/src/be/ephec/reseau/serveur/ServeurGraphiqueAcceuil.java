@@ -10,7 +10,6 @@ import javax.swing.JTextField;
 
 import be.ephec.reseau.Lanceur;
 import be.ephec.reseau.Plateau;
-import be.ephec.reseau.client.SocketClient;
 
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -61,16 +60,14 @@ public class ServeurGraphiqueAcceuil extends JPanel implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		try {System.out.println("serveur lancé");
+		try {
 			SocketServeur ss = new SocketServeur (Integer.parseInt(textFieldPort.getText()), leLanceur);
 			Plateau monPlateau = new Plateau("-1,-1", leLanceur);
 			leLanceur.getInterfaceGraphique().setContentPane(monPlateau.initPlateau());
 			leLanceur.getInterfaceGraphique().setVisible(true);
 		} catch (NumberFormatException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		

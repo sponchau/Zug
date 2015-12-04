@@ -6,7 +6,6 @@ import be.ephec.reseau.client.ClientGraphiqueAcceuil;
 import be.ephec.reseau.serveur.ServeurGraphiqueAcceuil;
 
 import java.awt.GridBagLayout;
-import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -18,7 +17,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JLabel;
 import java.awt.Font;
-import java.awt.Label;
 
 public class FenetreAcceuil extends JPanel implements ActionListener {
 
@@ -56,7 +54,7 @@ public class FenetreAcceuil extends JPanel implements ActionListener {
 		add(label, gbc_label);
 		
 		lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("D:\\hubic\\autre\\Zug\\zug.jpg"));
+		lblNewLabel.setIcon(new ImageIcon("zug.jpg"));
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel.gridx = 3;
@@ -99,16 +97,21 @@ public class FenetreAcceuil extends JPanel implements ActionListener {
 		if (e.getSource() == btnCreerPartie){
 			ServeurGraphiqueAcceuil acceuilS = new ServeurGraphiqueAcceuil(leLanceur);
 			leLanceur.getInterfaceGraphique().setContentPane(acceuilS);
-			leLanceur.getInterfaceGraphique().setBounds(250, 100, 400, 250);
+			leLanceur.getInterfaceGraphique().setSize(400, 250);
 			leLanceur.getInterfaceGraphique().setVisible(true);
 		}
 		if (e.getSource() == btnRejoindreLeServeur) {
 			ClientGraphiqueAcceuil acceuilC = new ClientGraphiqueAcceuil(leLanceur);
 			leLanceur.getInterfaceGraphique().setContentPane(acceuilC);
-			leLanceur.getInterfaceGraphique().setBounds(250, 100, 400, 250);
+			leLanceur.getInterfaceGraphique().setSize(400, 250);
 			leLanceur.getInterfaceGraphique().setVisible(true);
 		}
-		if (e.getSource() == btnRegle) {}
+		if (e.getSource() == btnRegle) {
+			ReglesDuJeu regle = new ReglesDuJeu();
+			leLanceur.getInterfaceGraphique().setContentPane(regle);
+			leLanceur.getInterfaceGraphique().setSize(800, 700);
+			leLanceur.getInterfaceGraphique().setVisible(true);
+		}
 	}
 
 }

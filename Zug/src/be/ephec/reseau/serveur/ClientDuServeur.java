@@ -15,6 +15,7 @@ public class ClientDuServeur implements Runnable{
 		private Lanceur leLanceur;
 		
 		public ClientDuServeur(Socket socket, Lanceur leLanceur){
+			this.leLanceur = leLanceur;
 			this.socket = socket;
 			try {
 				ois = new ObjectInputStream(socket.getInputStream());
@@ -32,7 +33,6 @@ public class ClientDuServeur implements Runnable{
 			try {
 				oos.writeObject(o);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -42,7 +42,9 @@ public class ClientDuServeur implements Runnable{
 			while (!socket.isClosed()){
 				try {
 					Object o = ois.readObject();
-					new Plateau (o+"", leLanceur);
+					Plateau plat = new Plateau (o.toString(), leLanceur);
+					leLanceur.getInterfaceGraphique().setContentPane(plat);
+					leLanceur.getInterfaceGraphique().setVisible(true);
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

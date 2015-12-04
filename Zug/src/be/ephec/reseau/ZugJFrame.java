@@ -20,8 +20,8 @@ public class ZugJFrame extends JFrame {
 		setResizable(false);
 		setContentPane(panelAcceuil);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(250, 100, 1000, 450);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(200, 10, 1000, 450);
+		setBackground(new Color(221, 239, 255));
 		this.setTitle("Zug");
 		this.setVisible(true);
 	}
