@@ -44,5 +44,6 @@ public class DeplacementPion {
 		new Plateau ("-1, -1");
 		if (VariablesGlobales.joueur == true) ClientDuServeur.ecrire(x+","+y);
 		else SocketClient.ecrire(x+","+y);
+		
 	}
 }
