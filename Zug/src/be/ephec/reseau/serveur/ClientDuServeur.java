@@ -49,9 +49,6 @@ public class ClientDuServeur implements Runnable{
 					monTableauI[1] = (int) Integer.parseInt(monTableauS[1]);
 					
 					DeplacementPion deplacement = new DeplacementPion(true, monTableauI[0], monTableauI[1]);
-					//Plateau plat = new Plateau (o.toString());
-					//VariablesGlobales.leLanceur.getInterfaceGraphique().setContentPane(plat);
-					//VariablesGlobales.leLanceur.getInterfaceGraphique().setVisible(true);
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

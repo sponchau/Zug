@@ -59,10 +59,6 @@ public class SocketClient extends Socket implements Runnable{
 				
 				DeplacementPion deplacement = new DeplacementPion(true, monTableauI[0], monTableauI[1]);
 				
-				/*Object o = ois.readObject();
-				Plateau plat = new Plateau (o.toString());
-				VariablesGlobales.leLanceur.getInterfaceGraphique().setContentPane(plat);
-				VariablesGlobales.leLanceur.getInterfaceGraphique().setVisible(true);*/
 			} catch (ClassNotFoundException e) {
 					e.printStackTrace();
 			} catch (IOException e) {
