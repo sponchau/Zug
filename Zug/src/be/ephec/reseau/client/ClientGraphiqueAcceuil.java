@@ -1,36 +1,34 @@
 package be.ephec.reseau.client;
 
-import javax.swing.JPanel;
-import java.awt.GridBagLayout;
-import javax.swing.JLabel;
-
 import java.awt.Color;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.UnknownHostException;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import be.ephec.global.VariablesGlobales;
+import be.ephec.plateau.InitPlateau;
+import be.ephec.plateau.Plateau;
 import be.ephec.reseau.Lanceur;
-import be.ephec.reseau.Plateau;
-
-import javax.swing.JButton;
 
 public class ClientGraphiqueAcceuil extends JPanel implements ActionListener{
 	private JTextField textFieldIp;
 	private JTextField textFieldPort;
 	private JButton btnConnection;
 	private JLabel lblErreur;
-	private Lanceur leLanceur;
 
 	/**
 	 * Create the panel.
 	 */
-	public ClientGraphiqueAcceuil(Lanceur leLanceur) {
-		this.leLanceur = leLanceur;
+	public ClientGraphiqueAcceuil() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{89, 67, 0, 0};
 		gridBagLayout.rowHeights = new int[]{70, 0, 0, 0, 0, 0};
@@ -94,10 +92,17 @@ public class ClientGraphiqueAcceuil extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		try {
-			SocketClient sc = new SocketClient (textFieldIp.getText(), Integer.parseInt(textFieldPort.getText()), leLanceur);
-			Plateau monPlateau = new Plateau("-1,-1", leLanceur);
-			leLanceur.getInterfaceGraphique().setContentPane(monPlateau.initPlateau());
-			leLanceur.getInterfaceGraphique().setVisible(true);
+			VariablesGlobales.joueurQuiJoue = true;	//Le client ne prend pas le premier tour de jeu
+			VariablesGlobales.joueur = false;  //on est du côté du client
+			
+			SocketClient sc = new SocketClient (textFieldIp.getText(), Integer.parseInt(textFieldPort.getText()));
+			InitPlateau initPlateau = new InitPlateau();
+			Plateau monPlateau = new Plateau("-1,-1");
+			
+			VariablesGlobales.leLanceur.getInterfaceGraphique().setContentPane(monPlateau);
+			VariablesGlobales.leLanceur.getInterfaceGraphique().setSize(700, 700);
+			VariablesGlobales.leLanceur.getInterfaceGraphique().setVisible(true);		
+			
 		} catch (NumberFormatException e1) {
 			// TODO Auto-generated catch block
 			lblErreur.setText("la connection n'a pas pu s'établir");

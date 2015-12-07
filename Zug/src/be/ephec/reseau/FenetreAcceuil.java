@@ -2,6 +2,7 @@ package be.ephec.reseau;
 
 import javax.swing.JPanel;
 
+import be.ephec.global.VariablesGlobales;
 import be.ephec.reseau.client.ClientGraphiqueAcceuil;
 import be.ephec.reseau.serveur.ServeurGraphiqueAcceuil;
 
@@ -20,7 +21,6 @@ import java.awt.Font;
 
 public class FenetreAcceuil extends JPanel implements ActionListener {
 
-	private Lanceur leLanceur;
 	private JButton btnCreerPartie;
 	private JButton btnRejoindreLeServeur;
 	private JButton btnRegle;
@@ -28,9 +28,7 @@ public class FenetreAcceuil extends JPanel implements ActionListener {
 	private JLabel label;
 	private JLabel lblNewLabel;
 	
-	public FenetreAcceuil(Lanceur leLanceur) {
-		
-		this.leLanceur = leLanceur;
+	public FenetreAcceuil() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{78, 31, 0, 0, 0, 0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{35, 35, 52, 0, 57, 24, 0, 0};
@@ -95,23 +93,24 @@ public class FenetreAcceuil extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnCreerPartie){
-			ServeurGraphiqueAcceuil acceuilS = new ServeurGraphiqueAcceuil(leLanceur);
-			leLanceur.getInterfaceGraphique().setContentPane(acceuilS);
-			leLanceur.getInterfaceGraphique().setSize(400, 250);
-			leLanceur.getInterfaceGraphique().setVisible(true);
+			ServeurGraphiqueAcceuil acceuilS = new ServeurGraphiqueAcceuil();
+			VariablesGlobales.leLanceur.getInterfaceGraphique().setContentPane(acceuilS);
+			VariablesGlobales.leLanceur.getInterfaceGraphique().setSize(400, 250);
+			VariablesGlobales.leLanceur.getInterfaceGraphique().setVisible(true);
 		}
 		if (e.getSource() == btnRejoindreLeServeur) {
-			ClientGraphiqueAcceuil acceuilC = new ClientGraphiqueAcceuil(leLanceur);
-			leLanceur.getInterfaceGraphique().setContentPane(acceuilC);
-			leLanceur.getInterfaceGraphique().setSize(400, 250);
-			leLanceur.getInterfaceGraphique().setVisible(true);
+			ClientGraphiqueAcceuil acceuilC = new ClientGraphiqueAcceuil();
+			VariablesGlobales.leLanceur.getInterfaceGraphique().setContentPane(acceuilC);
+			VariablesGlobales.leLanceur.getInterfaceGraphique().setSize(400, 250);
+			VariablesGlobales.leLanceur.getInterfaceGraphique().setVisible(true);
 		}
 		if (e.getSource() == btnRegle) {
 			ReglesDuJeu regle = new ReglesDuJeu();
-			leLanceur.getInterfaceGraphique().setContentPane(regle);
-			leLanceur.getInterfaceGraphique().setSize(800, 700);
-			leLanceur.getInterfaceGraphique().setVisible(true);
+			VariablesGlobales.leLanceur.getInterfaceGraphique().setContentPane(regle);
+			VariablesGlobales.leLanceur.getInterfaceGraphique().setSize(800, 700);
+			VariablesGlobales.leLanceur.getInterfaceGraphique().setVisible(true);
 		}
 	}
 
 }
+

@@ -1,29 +1,29 @@
 package be.ephec.reseau.serveur;
 
-import javax.swing.JPanel;
-import java.awt.GridBagLayout;
-import javax.swing.JLabel;
-
 import java.awt.Color;
 import java.awt.GridBagConstraints;
-import javax.swing.JTextField;
-
-import be.ephec.reseau.Lanceur;
-import be.ephec.reseau.Plateau;
-
+import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import be.ephec.global.VariablesGlobales;
+import be.ephec.plateau.InitPlateau;
+import be.ephec.plateau.Plateau;
+import be.ephec.reseau.Lanceur;
 
 public class ServeurGraphiqueAcceuil extends JPanel implements ActionListener{
 	private JTextField textFieldPort;
-	private Lanceur leLanceur;
 
-	public ServeurGraphiqueAcceuil(Lanceur leLanceur) {
-		this.leLanceur = leLanceur;
+
+	public ServeurGraphiqueAcceuil() {
+
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{84, 0, 0, 0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{55, 0, 0, 0};
@@ -61,10 +61,16 @@ public class ServeurGraphiqueAcceuil extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		try {
-			SocketServeur ss = new SocketServeur (Integer.parseInt(textFieldPort.getText()), leLanceur);
-			Plateau monPlateau = new Plateau("-1,-1", leLanceur);
-			leLanceur.getInterfaceGraphique().setContentPane(monPlateau.initPlateau());
-			leLanceur.getInterfaceGraphique().setVisible(true);
+			VariablesGlobales.joueurQuiJoue = true;	//Le joueur qui prend le premier tour est le serveur		
+			VariablesGlobales.joueur = true; // on est du côté du serveur
+			
+			SocketServeur ss = new SocketServeur (Integer.parseInt(textFieldPort.getText()));
+			InitPlateau initPlateau = new InitPlateau();
+			Plateau monPlateau = new Plateau("-1,-1");
+			VariablesGlobales.leLanceur.getInterfaceGraphique().setContentPane(monPlateau);
+			VariablesGlobales.leLanceur.getInterfaceGraphique().setSize(700, 700);
+			VariablesGlobales.leLanceur.getInterfaceGraphique().setVisible(true);			
+			
 		} catch (NumberFormatException e1) {
 			e1.printStackTrace();
 		} catch (IOException e1) {

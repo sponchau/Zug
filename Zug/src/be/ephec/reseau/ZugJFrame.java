@@ -15,8 +15,8 @@ public class ZugJFrame extends JFrame {
 
 	private JPanel contentPane;
 
-	public ZugJFrame(Lanceur leLanceur) {
-		JPanel panelAcceuil = new FenetreAcceuil(leLanceur);
+	public ZugJFrame() {
+		JPanel panelAcceuil = new FenetreAcceuil();
 		setResizable(false);
 		setContentPane(panelAcceuil);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

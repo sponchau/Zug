@@ -6,11 +6,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import be.ephec.global.VariablesGlobales;
+
 public class Lanceur {
 	private ZugJFrame interfaceGraphique;
 	
 	public Lanceur () {
-		interfaceGraphique = new ZugJFrame(this);
+		VariablesGlobales.leLanceur = this;
+		interfaceGraphique = new ZugJFrame();
 	}
 	
 public static void main(String[] args) {

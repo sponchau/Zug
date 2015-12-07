@@ -3,16 +3,14 @@ package be.ephec.reseau.serveur;
 import java.io.IOException;
 import java.net.ServerSocket;
 
+import be.ephec.global.VariablesGlobales;
 import be.ephec.reseau.Lanceur;
 
 
 public class SocketServeur extends ServerSocket implements Runnable{
-	
-	private Lanceur leLanceur;
 
-	public SocketServeur (int port, Lanceur leLanceur) throws IOException {
+	public SocketServeur (int port) throws IOException {
 		super (port);
-		this.leLanceur = leLanceur;
 		accepterClient ();
 	}
 	
@@ -24,7 +22,7 @@ public class SocketServeur extends ServerSocket implements Runnable{
 	@Override
 	public void run() {
 		try {
-			new ClientDuServeur(this.accept(), leLanceur);
+			new ClientDuServeur(this.accept());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	

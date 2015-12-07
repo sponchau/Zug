@@ -6,20 +6,18 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import javax.swing.SwingUtilities;
-
+import be.ephec.deplacement.DeplacementPion;
+import be.ephec.global.VariablesGlobales;
+import be.ephec.plateau.Plateau;
 import be.ephec.reseau.Lanceur;
-import be.ephec.reseau.Plateau;
 
 public class SocketClient extends Socket implements Runnable{
 	private static ObjectOutputStream oos;
 	private static ObjectInputStream ois;
-	private Lanceur leLanceur;
 	private Thread t;
 	
-	public SocketClient (String ip, int port, Lanceur leLanceur) throws UnknownHostException, IOException{
+	public SocketClient (String ip, int port) throws UnknownHostException, IOException{
 		super(ip, port);
-		this.leLanceur = leLanceur;
 		ouvertureStream();
 	}
 	
@@ -54,9 +52,17 @@ public class SocketClient extends Socket implements Runnable{
 		while (!this.isClosed()){
 			try {
 				Object o = ois.readObject();
-				Plateau plat = new Plateau (o.toString(), leLanceur);
-				leLanceur.getInterfaceGraphique().setContentPane(plat);
-				leLanceur.getInterfaceGraphique().setVisible(true);
+				String monTableauS[] = o.toString().split(",");
+				int monTableauI[] = {-1,-1};
+				monTableauI[0] = (int) Integer.parseInt(monTableauS[0]);
+				monTableauI[1] = (int) Integer.parseInt(monTableauS[1]);
+				
+				DeplacementPion deplacement = new DeplacementPion(true, monTableauI[0], monTableauI[1]);
+				
+				/*Object o = ois.readObject();
+				Plateau plat = new Plateau (o.toString());
+				VariablesGlobales.leLanceur.getInterfaceGraphique().setContentPane(plat);
+				VariablesGlobales.leLanceur.getInterfaceGraphique().setVisible(true);*/
 			} catch (ClassNotFoundException e) {
 					e.printStackTrace();
 			} catch (IOException e) {
