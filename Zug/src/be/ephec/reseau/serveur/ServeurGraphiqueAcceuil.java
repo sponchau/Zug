@@ -10,6 +10,7 @@ import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -61,15 +62,20 @@ public class ServeurGraphiqueAcceuil extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		try {
-			VariablesGlobales.joueurQuiJoue = true;	//Le joueur qui prend le premier tour est le serveur		
-			VariablesGlobales.joueur = true; // on est du côté du serveur
 			
-			SocketServeur ss = new SocketServeur (Integer.parseInt(textFieldPort.getText()));
-			InitPlateau initPlateau = new InitPlateau();
-			Plateau monPlateau = new Plateau("-1,-1");
-			VariablesGlobales.leLanceur.getInterfaceGraphique().setContentPane(monPlateau);
-			VariablesGlobales.leLanceur.getInterfaceGraphique().setSize(700, 700);
-			VariablesGlobales.leLanceur.getInterfaceGraphique().setVisible(true);			
+			VariablesGlobales.joueurQuiJoue = false;  //le serveur ne peut pas joueur tant que le client n'est pas connecté
+			VariablesGlobales.joueur = "serveur"; // on est du côté du serveur
+			
+			SocketServeur ss = new SocketServeur (Integer.parseInt(textFieldPort.getText())); //ouverture d'un socket pour le client
+			
+			InitPlateau initPlateau = new InitPlateau(); // initialisation du plateau de jeu
+			Plateau monPlateau = new Plateau();  // affichage du plateau de jeu
+			
+			VariablesGlobales.leLanceur.getInterfaceGraphique().setContentPane(monPlateau); //chargement de l'affichage du plateau dans la JFrame
+			VariablesGlobales.leLanceur.getInterfaceGraphique().setSize(700, 700); //redimentionnement de la JFrame pour l'adapter à la taille du plateau
+			VariablesGlobales.leLanceur.getInterfaceGraphique().setVisible(true); // afficher la JFrame
+			
+			JOptionPane.showMessageDialog(null, "En attente du client"); //demander au serveur de patienter en attendant le client
 			
 		} catch (NumberFormatException e1) {
 			e1.printStackTrace();

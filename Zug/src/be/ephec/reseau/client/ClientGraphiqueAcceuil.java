@@ -18,6 +18,7 @@ import be.ephec.global.VariablesGlobales;
 import be.ephec.plateau.InitPlateau;
 import be.ephec.plateau.Plateau;
 import be.ephec.reseau.Lanceur;
+import be.ephec.reseau.serveur.ClientDuServeur;
 
 public class ClientGraphiqueAcceuil extends JPanel implements ActionListener{
 	private JTextField textFieldIp;
@@ -92,16 +93,19 @@ public class ClientGraphiqueAcceuil extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		try {
-			VariablesGlobales.joueurQuiJoue = true;	//Le client ne prend pas le premier tour de jeu
-			VariablesGlobales.joueur = false;  //on est du côté du client
+			VariablesGlobales.joueurQuiJoue = false;	//Le client ne prend pas le premier tour de jeu
+			VariablesGlobales.joueur = "client";  //on est du côté du client
 			
-			SocketClient sc = new SocketClient (textFieldIp.getText(), Integer.parseInt(textFieldPort.getText()));
-			InitPlateau initPlateau = new InitPlateau();
-			Plateau monPlateau = new Plateau("-1,-1");
+			SocketClient sc = new SocketClient (textFieldIp.getText(), Integer.parseInt(textFieldPort.getText())); //création d'un socket vers le serveur
 			
-			VariablesGlobales.leLanceur.getInterfaceGraphique().setContentPane(monPlateau);
-			VariablesGlobales.leLanceur.getInterfaceGraphique().setSize(700, 700);
-			VariablesGlobales.leLanceur.getInterfaceGraphique().setVisible(true);		
+			InitPlateau initPlateau = new InitPlateau(); // initialistion du plateau de jeu
+			Plateau monPlateau = new Plateau(); // creation de l'affichage du plateau
+			
+			SocketClient.ecrire("-1,-1,true"); // prévenir le serveur que l'on est arrivé pour qu'il prenne le premier tour de jeu
+			
+			VariablesGlobales.leLanceur.getInterfaceGraphique().setContentPane(monPlateau); //chargement de l'affichage du plateau dans la JFrame
+			VariablesGlobales.leLanceur.getInterfaceGraphique().setSize(700, 700); //redimentionnement de la JFrame pour l'adapter à la taille du plateau
+			VariablesGlobales.leLanceur.getInterfaceGraphique().setVisible(true); // afficher la JFrame	
 			
 		} catch (NumberFormatException e1) {
 			// TODO Auto-generated catch block

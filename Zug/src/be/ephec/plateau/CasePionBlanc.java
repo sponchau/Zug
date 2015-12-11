@@ -46,8 +46,8 @@ public class CasePionBlanc extends Case implements MouseListener{
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		if (VariablesGlobales.joueurQuiJoue == VariablesGlobales.joueur){
-			new DeplacementPion(false, x, y);
+		if (VariablesGlobales.joueurQuiJoue && VariablesGlobales.joueur == "serveur" && VariablesGlobales.desactiverPions == false){
+			new DeplacementPion("blanc", x, y);
 		}
 		
 	}

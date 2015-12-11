@@ -22,7 +22,6 @@ import be.ephec.reseau.Lanceur;
 public class CasePionNoir extends Case implements MouseListener{
 	private int x;
 	private int y;
-	private String type = "noir";
 	
 	public CasePionNoir(int x, int y) {
 			super ();
@@ -58,8 +57,8 @@ public class CasePionNoir extends Case implements MouseListener{
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 		//vérifie si c'est bien à notre tour de jouer
-				if (VariablesGlobales.joueurQuiJoue == VariablesGlobales.joueur){
-						new DeplacementPion(true, x, y);
+				if (VariablesGlobales.joueurQuiJoue && VariablesGlobales.joueur == "client" && VariablesGlobales.desactiverPions == false){
+						new DeplacementPion("noir", x, y);
 					}
 	}
 

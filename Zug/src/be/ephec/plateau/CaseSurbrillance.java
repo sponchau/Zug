@@ -4,16 +4,21 @@ import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import be.ephec.deplacement.DeplacementSurbrillance;
+import be.ephec.global.VariablesGlobales;
+
 public class CaseSurbrillance extends Case implements MouseListener{
 	
 	private int x;
 	private int y;
+	private boolean saut;
 	
-	public CaseSurbrillance (int x, int y) {
+	public CaseSurbrillance (int x, int y, boolean saut) {
 		super ();
 		
 		this.x= x;
 		this.y = y;
+		this.saut = saut;
 		
 		super.setBackground(Color.YELLOW);
 		setLayout(super.gridCase);
@@ -40,7 +45,8 @@ public class CaseSurbrillance extends Case implements MouseListener{
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+		if (VariablesGlobales.joueurQuiJoue == true)
+		new DeplacementSurbrillance(x, y, saut);
 		
 	}
 
