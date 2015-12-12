@@ -12,7 +12,7 @@ public class PasserLaMain {
 			if (saut == false) {
 				VariablesGlobales.desactiverPions = false;
 				VariablesGlobales.joueurQuiJoue = false;
-				DeplacementPion.precedentEstUnSaut = false;
+				DeplacementPion.setPrecedentEstUnSaut(false);
 				ClientDuServeur.ecrire(x+","+y+",true");
 				FinDeJeu fin = new FinDeJeu();
 			}
@@ -29,7 +29,7 @@ public class PasserLaMain {
 			if (saut == false) {
 				VariablesGlobales.desactiverPions = false;
 				VariablesGlobales.joueurQuiJoue = false;
-				DeplacementPion.precedentEstUnSaut = false;
+				DeplacementPion.setPrecedentEstUnSaut(false);
 				SocketClient.ecrire(x+","+y+",true");
 				FinDeJeu fin = new FinDeJeu();
 			}

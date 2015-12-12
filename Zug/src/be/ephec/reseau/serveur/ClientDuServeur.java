@@ -63,8 +63,11 @@ public class ClientDuServeur implements Runnable{
 						JOptionPane.showMessageDialog(null, "Le client est connecté, vous pouvez jouer"); // on prévient le serveur qu'il peut commencer
 					}
 					
+					//si ça n'est pas à nous de jouer, on peut faire les déplacements adverses
 					if (VariablesGlobales.joueurQuiJoue == false) {
+						//répéter les déplacements adverses chez nous lors d'un clic sur une case en subrillance
 						if (VariablesGlobales.tabPlateau[monTableauI[0]] [monTableauI[1]] instanceof CaseSurbrillance) {new DeplacementSurbrillance(monTableauI[0], monTableauI[1], false);}
+						//répéter les calculs des cases en subrillance chez nous
 						else {DeplacementPion deplacement = new DeplacementPion("noir", monTableauI[0], monTableauI[1]);}
 					}
 					

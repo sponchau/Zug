@@ -14,10 +14,10 @@ import be.ephec.reseau.client.SocketClient;
 import be.ephec.reseau.serveur.ClientDuServeur;
 
 public class DeplacementPion {
-	public static int abcisse;
-	public static int ordonnee;
-	public static boolean saut;
-	public static boolean precedentEstUnSaut = false;
+	private static int abcisse;
+	private static int ordonnee;
+	private static boolean saut;
+	private static boolean precedentEstUnSaut = false;
 	private boolean finTour = true;
 	
 	public DeplacementPion (String couleurPion, int x, int y) {
@@ -25,7 +25,7 @@ public class DeplacementPion {
 			this.abcisse = x;
 			this.ordonnee = y;
 			
-			new SupprimerSurbrillance();
+			new SupprimerSurbrillance(); //retirer les cases en surbrillances sur le plateau
 			
 			if (couleurPion=="noir") {
 				calculSurbrillance(x, y, 1, 1);
@@ -66,5 +66,29 @@ public class DeplacementPion {
 			VariablesGlobales.tabPlateau[abcisse+directionX][ordonnee+directionY] = new CaseSurbrillance (abcisse+directionX, ordonnee+directionY, saut);	
 		};
 	}
+
+
+
+	public static int getAbcisse() {
+		return abcisse;
+	}
+
+
+	public static int getOrdonnee() {
+		return ordonnee;
+	}
+
+
+
+	public static boolean isPrecedentEstUnSaut() {
+		return precedentEstUnSaut;
+	}
+
+
+
+	public static void setPrecedentEstUnSaut(boolean precedentEstUnSaut) {
+		DeplacementPion.precedentEstUnSaut = precedentEstUnSaut;
+	}
+
 	
 }
